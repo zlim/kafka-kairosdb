@@ -49,10 +49,11 @@ KAFKA := $(addsuffix :9092,$(CONTAINERS_KAFKA))
 comma := ,
 KAFKA := $(subst $(eval),$(comma),$(KAFKA))
 KAIROS := http://$(CONTAINER_KAIROS):8080
+KAFKA_TOPICS := iostats
 
 LINKS := $(addprefix --link ,$(CONTAINERS_KAFKA) $(CONTAINER_KAIROS))
 
 .PHONY: run
 run:
-	docker run --rm $(LINKS) $(IMAGETAG) /main -kf $(KAFKA) -kdb $(KAIROS)
+	docker run --rm $(LINKS) $(IMAGETAG) /main -kf $(KAFKA) -kdb $(KAIROS) -kt $(KAFKA_TOPICS)
 
